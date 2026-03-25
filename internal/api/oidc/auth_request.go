@@ -97,6 +97,18 @@ func (o *OPStorage) createAuthRequestScopeAndAudience(ctx context.Context, clien
 	if err != nil {
 		return nil, nil, "", err
 	}
+
+	application, err := o.query.AppByClientID(ctx, clientID)
+	if err != nil {
+		return nil, nil, "", err
+	}
+
+	if application.OIDCConfig.LimitAudience {
+		audience := []string{clientID}
+
+		return scope, audience, orgID, nil
+	}
+
 	audience, err = o.audienceFromProjectID(ctx, project.ID)
 	audience = domain.AddAudScopeToAudience(ctx, audience, scope)
 	if err != nil {

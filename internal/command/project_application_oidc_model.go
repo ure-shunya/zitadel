@@ -40,6 +40,7 @@ type OIDCApplicationWriteModel struct {
 	LoginVersion             domain.LoginVersion
 	LoginBaseURI             string
 	oidc                     bool
+	LimitAudience            bool
 }
 
 func NewOIDCApplicationWriteModelWithAppID(projectID, appID, resourceOwner string) *OIDCApplicationWriteModel {
@@ -60,6 +61,7 @@ func NewOIDCApplicationWriteModel(projectID, resourceOwner string) *OIDCApplicat
 		},
 	}
 }
+
 func (wm *OIDCApplicationWriteModel) AppendEvents(events ...eventstore.Event) {
 	for _, event := range events {
 		switch e := event.(type) {
@@ -171,6 +173,7 @@ func (wm *OIDCApplicationWriteModel) appendAddOIDCEvent(e *project.OIDCConfigAdd
 	wm.BackChannelLogoutURI = e.BackChannelLogoutURI
 	wm.LoginVersion = e.LoginVersion
 	wm.LoginBaseURI = e.LoginBaseURI
+	wm.LimitAudience = e.LimitAudience
 }
 
 func (wm *OIDCApplicationWriteModel) appendChangeOIDCEvent(e *project.OIDCConfigChangedEvent) {
@@ -228,6 +231,9 @@ func (wm *OIDCApplicationWriteModel) appendChangeOIDCEvent(e *project.OIDCConfig
 	if e.LoginBaseURI != nil {
 		wm.LoginBaseURI = *e.LoginBaseURI
 	}
+	if e.LimitAudience != nil {
+		wm.LimitAudience = *e.LimitAudience
+	}
 }
 
 func (wm *OIDCApplicationWriteModel) Query() *eventstore.SearchQueryBuilder {
@@ -272,6 +278,7 @@ func (wm *OIDCApplicationWriteModel) NewChangedEvent(
 	backChannelLogoutURI *string,
 	loginVersion *domain.LoginVersion,
 	loginBaseURI *string,
+	limitAudience *bool,
 ) (*project.OIDCConfigChangedEvent, bool, error) {
 	changes := make([]project.OIDCConfigChanges, 0)
 	var err error
@@ -329,6 +336,9 @@ func (wm *OIDCApplicationWriteModel) NewChangedEvent(
 	}
 	if loginBaseURI != nil && wm.LoginBaseURI != *loginBaseURI {
 		changes = append(changes, project.ChangeOIDCLoginBaseURI(*loginBaseURI))
+	}
+	if limitAudience != nil && wm.LimitAudience != *limitAudience {
+		changes = append(changes, project.ChangeLimitAudience(*limitAudience))
 	}
 
 	if len(changes) == 0 {

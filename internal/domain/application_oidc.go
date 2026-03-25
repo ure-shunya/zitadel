@@ -44,6 +44,7 @@ type OIDCApp struct {
 	BackChannelLogoutURI     *string
 	LoginVersion             *LoginVersion
 	LoginBaseURI             *string
+	LimitAudience            *bool
 
 	State AppState
 }
@@ -390,7 +391,6 @@ func containsCustom(uris []string) bool {
 func onlyLocalhostIsHttp(uris []string) bool {
 	for _, uri := range uris {
 		url, err := url.ParseRequestURI(uri)
-
 		if err != nil {
 			return false
 		}
@@ -403,7 +403,6 @@ func onlyLocalhostIsHttp(uris []string) bool {
 			}
 
 			address, err := netip.ParseAddr(hostname)
-
 			if err != nil {
 				return false
 			}

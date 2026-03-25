@@ -30,6 +30,7 @@ type OIDCConfig struct {
 	IDTokenRoleAssertion     bool
 	IDTokenUserinfoAssertion bool
 	ClockSkew                time.Duration
+	LimitAudience            bool
 }
 
 type OIDCVersion int32

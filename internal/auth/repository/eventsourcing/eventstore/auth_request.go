@@ -30,11 +30,9 @@ import (
 
 const unknownUserID = "UNKNOWN"
 
-var (
-	ErrUserNotFound = func(err error) error {
-		return zerrors.ThrowNotFound(err, "EVENT-hodc6", "Errors.User.NotFound")
-	}
-)
+var ErrUserNotFound = func(err error) error {
+	return zerrors.ThrowNotFound(err, "EVENT-hodc6", "Errors.User.NotFound")
+}
 
 type AuthRequestRepo struct {
 	Command      *command.Commands
@@ -160,7 +158,15 @@ func (repo *AuthRequestRepo) CreateAuthRequest(ctx context.Context, request *dom
 	if err != nil {
 		return nil, err
 	}
-	request.AppendAudIfNotExisting(project.ID)
+	application, err := repo.ApplicationProvider.AppByOIDCClientID(ctx, request.ApplicationID)
+	if err != nil {
+		return nil, err
+	}
+
+	if !application.OIDCConfig.LimitAudience {
+		request.AppendAudIfNotExisting(project.ID)
+	}
+
 	request.ApplicationResourceOwner = project.ResourceOwner
 	request.PrivateLabelingSetting = project.PrivateLabelingSetting
 	if err := setOrgID(ctx, repo.OrgViewProvider, request); err != nil {
@@ -1169,7 +1175,7 @@ func (repo *AuthRequestRepo) nextSteps(ctx context.Context, request *domain.Auth
 	if len(request.LinkingUsers) != 0 {
 		return append(steps, &domain.LinkUsersStep{}), nil
 	}
-	//PLANNED: consent step
+	// PLANNED: consent step
 
 	missing, err := projectRequired(ctx, request, repo.ProjectProvider)
 	if err != nil {
@@ -1652,30 +1658,28 @@ func userSessionsByUserAgentID(ctx context.Context, provider userSessionViewProv
 	return user_view_model.UserSessionsToModel(session), nil
 }
 
-var (
-	userSessionEventTypes = []eventstore.EventType{
-		user_repo.UserV1PasswordCheckSucceededType,
-		user_repo.UserV1PasswordCheckFailedType,
-		user_repo.UserV1MFAOTPCheckSucceededType,
-		user_repo.UserV1MFAOTPCheckFailedType,
-		user_repo.UserV1SignedOutType,
-		user_repo.UserLockedType,
-		user_repo.UserDeactivatedType,
-		user_repo.HumanPasswordCheckSucceededType,
-		user_repo.HumanPasswordCheckFailedType,
-		user_repo.UserIDPLoginCheckSucceededType,
-		user_repo.HumanMFAOTPCheckSucceededType,
-		user_repo.HumanMFAOTPCheckFailedType,
-		user_repo.HumanRecoveryCodeCheckSucceededType,
-		user_repo.HumanRecoveryCodeCheckFailedType,
-		user_repo.HumanSignedOutType,
-		user_repo.HumanPasswordlessTokenCheckSucceededType,
-		user_repo.HumanPasswordlessTokenCheckFailedType,
-		user_repo.HumanU2FTokenCheckSucceededType,
-		user_repo.HumanU2FTokenCheckFailedType,
-		user_repo.UserRemovedType,
-	}
-)
+var userSessionEventTypes = []eventstore.EventType{
+	user_repo.UserV1PasswordCheckSucceededType,
+	user_repo.UserV1PasswordCheckFailedType,
+	user_repo.UserV1MFAOTPCheckSucceededType,
+	user_repo.UserV1MFAOTPCheckFailedType,
+	user_repo.UserV1SignedOutType,
+	user_repo.UserLockedType,
+	user_repo.UserDeactivatedType,
+	user_repo.HumanPasswordCheckSucceededType,
+	user_repo.HumanPasswordCheckFailedType,
+	user_repo.UserIDPLoginCheckSucceededType,
+	user_repo.HumanMFAOTPCheckSucceededType,
+	user_repo.HumanMFAOTPCheckFailedType,
+	user_repo.HumanRecoveryCodeCheckSucceededType,
+	user_repo.HumanRecoveryCodeCheckFailedType,
+	user_repo.HumanSignedOutType,
+	user_repo.HumanPasswordlessTokenCheckSucceededType,
+	user_repo.HumanPasswordlessTokenCheckFailedType,
+	user_repo.HumanU2FTokenCheckSucceededType,
+	user_repo.HumanU2FTokenCheckFailedType,
+	user_repo.UserRemovedType,
+}
 
 func userSessionByIDs(ctx context.Context, provider userSessionViewProvider, eventProvider userEventProvider, agentID, userID string) (*user_model.UserSessionView, error) {
 	instanceID := authz.GetInstance(ctx).InstanceID()

@@ -64,6 +64,7 @@ type OIDCApp struct {
 	BackChannelLogoutURI     string
 	LoginVersion             domain.LoginVersion
 	LoginBaseURI             *string
+	LimitAudience            bool
 }
 
 type SAMLApp struct {
@@ -276,6 +277,10 @@ var (
 	}
 	AppOIDCConfigColumnLoginBaseURI = Column{
 		name:  projection.AppOIDCConfigColumnLoginBaseURI,
+		table: appOIDCConfigsTable,
+	}
+	AppOIDCConfigLimitAudience = Column{
+		name:  projection.AppOIDCConfigColumnLimitAudience,
 		table: appOIDCConfigsTable,
 	}
 )
@@ -725,6 +730,7 @@ func prepareAppQuery(activeOnly bool) (sq.SelectBuilder, func(*sql.Row) (*App, e
 		AppOIDCConfigColumnBackChannelLogoutURI.identifier(),
 		AppOIDCConfigColumnLoginVersion.identifier(),
 		AppOIDCConfigColumnLoginBaseURI.identifier(),
+		AppOIDCConfigLimitAudience.identifier(),
 
 		AppSAMLConfigColumnAppID.identifier(),
 		AppSAMLConfigColumnEntityID.identifier(),
@@ -794,6 +800,7 @@ func scanApp(row *sql.Row) (*App, error) {
 		&oidcConfig.backChannelLogoutURI,
 		&oidcConfig.loginVersion,
 		&oidcConfig.loginBaseURI,
+		&oidcConfig.limitAudience,
 
 		&samlConfig.appID,
 		&samlConfig.entityID,
@@ -802,7 +809,6 @@ func scanApp(row *sql.Row) (*App, error) {
 		&samlConfig.loginVersion,
 		&samlConfig.loginBaseURI,
 	)
-
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, zerrors.ThrowNotFound(err, "QUERY-pCP8P", "Errors.App.NotExisting")
@@ -848,14 +854,13 @@ func prepareOIDCAppQuery() (sq.SelectBuilder, func(*sql.Row) (*App, error)) {
 			AppOIDCConfigColumnBackChannelLogoutURI.identifier(),
 			AppOIDCConfigColumnLoginVersion.identifier(),
 			AppOIDCConfigColumnLoginBaseURI.identifier(),
+			AppOIDCConfigLimitAudience.identifier(),
 		).From(appsTable.identifier()).
 			Join(join(AppOIDCConfigColumnAppID, AppColumnID)).
 			PlaceholderFormat(sq.Dollar), func(row *sql.Row) (*App, error) {
 			app := new(App)
 
-			var (
-				oidcConfig = sqlOIDCConfig{}
-			)
+			oidcConfig := sqlOIDCConfig{}
 
 			err := row.Scan(
 				&app.ID,
@@ -887,8 +892,8 @@ func prepareOIDCAppQuery() (sq.SelectBuilder, func(*sql.Row) (*App, error)) {
 				&oidcConfig.backChannelLogoutURI,
 				&oidcConfig.loginVersion,
 				&oidcConfig.loginBaseURI,
+				&oidcConfig.limitAudience,
 			)
-
 			if err != nil {
 				if errors.Is(err, sql.ErrNoRows) {
 					return nil, zerrors.ThrowNotFound(err, "QUERY-Fdfax", "Errors.App.NotExisting")
@@ -913,7 +918,6 @@ func prepareProjectIDByAppQuery() (sq.SelectBuilder, func(*sql.Row) (projectID s
 			err = row.Scan(
 				&projectID,
 			)
-
 			if err != nil {
 				if errors.Is(err, sql.ErrNoRows) {
 					return "", zerrors.ThrowNotFound(err, "QUERY-aKcc2", "Errors.Project.NotExisting")
@@ -1004,6 +1008,7 @@ func prepareAppsQuery() (sq.SelectBuilder, func(*sql.Rows) (*Apps, error)) {
 			AppOIDCConfigColumnBackChannelLogoutURI.identifier(),
 			AppOIDCConfigColumnLoginVersion.identifier(),
 			AppOIDCConfigColumnLoginBaseURI.identifier(),
+			AppOIDCConfigLimitAudience.identifier(),
 
 			AppSAMLConfigColumnAppID.identifier(),
 			AppSAMLConfigColumnEntityID.identifier(),
@@ -1061,6 +1066,7 @@ func prepareAppsQuery() (sq.SelectBuilder, func(*sql.Rows) (*Apps, error)) {
 					&oidcConfig.backChannelLogoutURI,
 					&oidcConfig.loginVersion,
 					&oidcConfig.loginBaseURI,
+					&oidcConfig.limitAudience,
 
 					&samlConfig.appID,
 					&samlConfig.entityID,
@@ -1071,7 +1077,6 @@ func prepareAppsQuery() (sq.SelectBuilder, func(*sql.Rows) (*Apps, error)) {
 
 					&apps.Count,
 				)
-
 				if err != nil {
 					return nil, zerrors.ThrowInternal(err, "QUERY-XGWAX", "Errors.Internal")
 				}
@@ -1168,6 +1173,7 @@ type sqlOIDCConfig struct {
 	backChannelLogoutURI     sql.NullString
 	loginVersion             sql.NullInt16
 	loginBaseURI             sql.NullString
+	limitAudience            sql.NullBool
 }
 
 func (c sqlOIDCConfig) set(app *App) {
@@ -1193,6 +1199,7 @@ func (c sqlOIDCConfig) set(app *App) {
 		SkipNativeAppSuccessPage: c.skipNativeAppSuccessPage.Bool,
 		BackChannelLogoutURI:     c.backChannelLogoutURI.String,
 		LoginVersion:             domain.LoginVersion(c.loginVersion.Int16),
+		LimitAudience:            c.limitAudience.Bool,
 	}
 	if c.loginBaseURI.Valid {
 		app.OIDCConfig.LoginBaseURI = &c.loginBaseURI.String

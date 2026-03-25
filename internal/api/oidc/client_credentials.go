@@ -121,6 +121,11 @@ func (c *clientCredentialsClient) RestrictAdditionalAccessTokenScopes() func(sco
 	}
 }
 
+// Limit Audience returns false as there is no dev mode
+func (c *clientCredentialsClient) LimitAudience() bool {
+	return false
+}
+
 func (c *clientCredentialsClient) IsScopeAllowed(scope string) bool {
 	return isScopeAllowed(scope) || strings.HasPrefix(scope, ScopeProjectRolePrefix)
 }
