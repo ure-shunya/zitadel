@@ -193,6 +193,7 @@ type Steps struct {
 	s71JWTProvideAddAudienceColumn          *JWTProvideAddAudienceColumn
 	s72AddColumnsToLoginNamesView           *AddColumnsToLoginNamesView
 	s73FixUserGrantRoles                    *FixUserGrantRoles
+	sShunya01AppsOIDCConfigsLimitAudience   *AppsOIDCConfigsLimitAudience
 	RelationalTables                        *TransactionalTables
 }
 

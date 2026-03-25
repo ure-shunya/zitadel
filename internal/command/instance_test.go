@@ -125,6 +125,7 @@ func oidcAppEvents(ctx context.Context, orgID, projectID, id, name, clientID str
 			"",
 			domain.LoginVersionUnspecified,
 			"",
+			false,
 		),
 	}
 }
@@ -468,6 +469,7 @@ func generatedDomainFilters(instanceID, orgID, projectID, appID, generatedDomain
 				"",
 				domain.LoginVersionUnspecified,
 				"",
+				false,
 			),
 		),
 		expectFilter(
@@ -632,6 +634,7 @@ func adminMemberFilters(orgID, userID string) []expect {
 	)
 	return filters
 }
+
 func orgMemberFilters(orgID, userID string) []expect {
 	return []expect{
 		expectFilter(
@@ -835,6 +838,7 @@ func TestCommandSide_setupMinimalInterfaces(t *testing.T) {
 		})
 	}
 }
+
 func validZitadelRoles() []authz.RoleMapping {
 	return []authz.RoleMapping{
 		{Role: domain.RoleOrgOwner, Permissions: []string{""}},

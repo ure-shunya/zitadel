@@ -179,6 +179,11 @@ message OIDCConfig {
             description: "Specify the preferred login UI, where the user is redirected to for authentication. If unset, the login UI is chosen by the instance default.";
         }
     ];
+    bool limit_audience = 23 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "used for limiting audience to client id";
+        }
+    ];
 }
 
 enum OIDCResponseType {

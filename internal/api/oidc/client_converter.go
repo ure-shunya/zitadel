@@ -146,6 +146,10 @@ func (c *Client) PostLogoutRedirectURIGlobs() []string {
 	return nil
 }
 
+func (c *Client) LimitAudience() bool {
+	return c.client.LimitAudience
+}
+
 func accessTokenTypeToOIDC(tokenType domain.OIDCTokenType) op.AccessTokenType {
 	switch tokenType {
 	case domain.OIDCTokenTypeBearer:

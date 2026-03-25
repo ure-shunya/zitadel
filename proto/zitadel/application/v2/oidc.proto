@@ -157,4 +157,8 @@ message OIDCConfiguration {
   // hosted on any other domain.
   // If unset, the login UI is chosen by the instance default.
   LoginVersion login_version = 21;
+
+  // LimitAudience limits the audience claim in issued tokens to only include the client_id of the application.
+  // When enabled, tokens will not include other client_ids from the same project in the audience.
+  bool limit_audience = 22;
 }

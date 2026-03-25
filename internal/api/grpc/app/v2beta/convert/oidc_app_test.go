@@ -32,8 +32,10 @@ func TestCreateOIDCAppRequestToDomain(t *testing.T) {
 			projectID: "pid",
 			appID:     "aid",
 			req: &app.CreateOIDCApplicationRequest{
-				LoginVersion: &app.LoginVersion{Version: &app.LoginVersion_LoginV2{
-					LoginV2: &app.LoginV2{BaseUri: gu.Ptr("%+o")}},
+				LoginVersion: &app.LoginVersion{
+					Version: &app.LoginVersion_LoginV2{
+						LoginV2: &app.LoginV2{BaseUri: gu.Ptr("%+o")},
+					},
 				},
 			},
 			expectedModel: nil,
@@ -66,6 +68,7 @@ func TestCreateOIDCAppRequestToDomain(t *testing.T) {
 				LoginVersion: &app.LoginVersion{Version: &app.LoginVersion_LoginV2{LoginV2: &app.LoginV2{
 					BaseUri: gu.Ptr("https://login"),
 				}}},
+				LimitAudience: false,
 			},
 			expectedModel: &domain.OIDCApp{
 				ObjectRoot:               models.ObjectRoot{AggregateID: "project1"},
@@ -89,6 +92,7 @@ func TestCreateOIDCAppRequestToDomain(t *testing.T) {
 				BackChannelLogoutURI:     gu.Ptr("https://backchannel"),
 				LoginVersion:             gu.Ptr(domain.LoginVersion2),
 				LoginBaseURI:             gu.Ptr("https://login"),
+				LimitAudience:            gu.Ptr(false),
 			},
 		},
 	}
@@ -159,6 +163,7 @@ func TestUpdateOIDCAppConfigRequestToDomain(t *testing.T) {
 				LoginVersion: &app.LoginVersion{Version: &app.LoginVersion_LoginV2{
 					LoginV2: &app.LoginV2{BaseUri: gu.Ptr("https://login")},
 				}},
+				LimitAudience: gu.Ptr(false),
 			},
 			expectedModel: &domain.OIDCApp{
 				ObjectRoot:               models.ObjectRoot{AggregateID: "proj1"},
@@ -180,6 +185,7 @@ func TestUpdateOIDCAppConfigRequestToDomain(t *testing.T) {
 				BackChannelLogoutURI:     gu.Ptr("https://backchannel"),
 				LoginVersion:             gu.Ptr(domain.LoginVersion2),
 				LoginBaseURI:             gu.Ptr("https://login"),
+				LimitAudience:            gu.Ptr(false),
 			},
 		},
 	}
@@ -429,6 +435,7 @@ func TestOIDCTokenTypeToDomain(t *testing.T) {
 		})
 	}
 }
+
 func TestAppOIDCConfigToPb(t *testing.T) {
 	t.Parallel()
 
@@ -473,6 +480,7 @@ func TestAppOIDCConfigToPb(t *testing.T) {
 				BackChannelLogoutURI:     "https://example.com/backchannel",
 				LoginVersion:             domain.LoginVersion2,
 				LoginBaseURI:             gu.Ptr("https://login.example.com"),
+				LimitAudience:            false,
 			},
 			expected: &app.Application_OidcConfig{
 				OidcConfig: &app.OIDCConfig{
@@ -506,6 +514,7 @@ func TestAppOIDCConfigToPb(t *testing.T) {
 							},
 						},
 					},
+					LimitAudience: false,
 				},
 			},
 		},
@@ -575,6 +584,7 @@ func TestOIDCResponseTypesFromModel(t *testing.T) {
 		})
 	}
 }
+
 func TestOIDCGrantTypesFromModel(t *testing.T) {
 	t.Parallel()
 

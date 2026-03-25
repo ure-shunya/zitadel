@@ -32,8 +32,10 @@ func TestCreateOIDCAppRequestToDomain(t *testing.T) {
 			projectID: "pid",
 			appID:     "aid",
 			req: &application.CreateOIDCApplicationRequest{
-				LoginVersion: &application.LoginVersion{Version: &application.LoginVersion_LoginV2{
-					LoginV2: &application.LoginV2{BaseUri: gu.Ptr("%+o")}},
+				LoginVersion: &application.LoginVersion{
+					Version: &application.LoginVersion_LoginV2{
+						LoginV2: &application.LoginV2{BaseUri: gu.Ptr("%+o")},
+					},
 				},
 			},
 			expectedModel: nil,
@@ -89,6 +91,7 @@ func TestCreateOIDCAppRequestToDomain(t *testing.T) {
 				BackChannelLogoutURI:     gu.Ptr("https://backchannel"),
 				LoginVersion:             gu.Ptr(domain.LoginVersion2),
 				LoginBaseURI:             gu.Ptr("https://login"),
+				LimitAudience:            gu.Ptr(false),
 			},
 		},
 	}
@@ -159,6 +162,7 @@ func TestUpdateOIDCAppConfigRequestToDomain(t *testing.T) {
 				LoginVersion: &application.LoginVersion{Version: &application.LoginVersion_LoginV2{
 					LoginV2: &application.LoginV2{BaseUri: gu.Ptr("https://login")},
 				}},
+				LimitAudience: gu.Ptr(false),
 			},
 			expectedModel: &domain.OIDCApp{
 				ObjectRoot:               models.ObjectRoot{AggregateID: "proj1"},
@@ -180,6 +184,7 @@ func TestUpdateOIDCAppConfigRequestToDomain(t *testing.T) {
 				BackChannelLogoutURI:     gu.Ptr("https://backchannel"),
 				LoginVersion:             gu.Ptr(domain.LoginVersion2),
 				LoginBaseURI:             gu.Ptr("https://login"),
+				LimitAudience:            gu.Ptr(false),
 			},
 		},
 	}
@@ -429,6 +434,7 @@ func TestOIDCTokenTypeToDomain(t *testing.T) {
 		})
 	}
 }
+
 func TestAppOIDCConfigToPb(t *testing.T) {
 	t.Parallel()
 
@@ -473,6 +479,7 @@ func TestAppOIDCConfigToPb(t *testing.T) {
 				BackChannelLogoutURI:     "https://example.com/backchannel",
 				LoginVersion:             domain.LoginVersion2,
 				LoginBaseURI:             gu.Ptr("https://login.example.com"),
+				LimitAudience:            false,
 			},
 			expected: &application.Application_OidcConfiguration{
 				OidcConfiguration: &application.OIDCConfiguration{
@@ -575,6 +582,7 @@ func TestOIDCResponseTypesFromModel(t *testing.T) {
 		})
 	}
 }
+
 func TestOIDCGrantTypesFromModel(t *testing.T) {
 	t.Parallel()
 

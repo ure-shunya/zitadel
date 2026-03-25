@@ -51,7 +51,8 @@ var (
 		` projections.apps7_oidc_configs.back_channel_logout_uri,` +
 		` projections.apps7_oidc_configs.login_version,` +
 		` projections.apps7_oidc_configs.login_base_uri,` +
-		//saml config
+		` projections.apps7_oidc_configs.limit_audience,` +
+		// saml config
 		` projections.apps7_saml_configs.app_id,` +
 		` projections.apps7_saml_configs.entity_id,` +
 		` projections.apps7_saml_configs.metadata,` +
@@ -99,7 +100,8 @@ var (
 		` projections.apps7_oidc_configs.back_channel_logout_uri,` +
 		` projections.apps7_oidc_configs.login_version,` +
 		` projections.apps7_oidc_configs.login_base_uri,` +
-		//saml config
+		` projections.apps7_oidc_configs.limit_audience,` +
+		// saml config
 		` projections.apps7_saml_configs.app_id,` +
 		` projections.apps7_saml_configs.entity_id,` +
 		` projections.apps7_saml_configs.metadata,` +
@@ -172,7 +174,8 @@ var (
 		"back_channel_logout_uri",
 		"login_version",
 		"login_base_uri",
-		//saml config
+		"limit_audience",
+		// saml config
 		"app_id",
 		"entity_id",
 		"metadata",
@@ -351,7 +354,8 @@ func Test_AppsPrepare(t *testing.T) {
 					},
 				},
 			},
-		}, {
+		},
+		{
 			name:    "prepareAppsQuery saml app",
 			prepare: prepareAppsQuery,
 			want: want{
@@ -393,6 +397,7 @@ func Test_AppsPrepare(t *testing.T) {
 							nil,
 							nil,
 							nil,
+							false,
 							// saml config
 							"app-id",
 							"https://test.com/saml/metadata",
@@ -516,6 +521,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -610,6 +616,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -657,6 +664,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"back.channel.logout.ch",
 							domain.LoginVersionUnspecified,
 							nil,
+							false,
 							// saml config
 							nil,
 							nil,
@@ -704,6 +712,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -751,6 +760,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"back.channel.logout.ch",
 							domain.LoginVersionUnspecified,
 							nil,
+							false,
 							// saml config
 							nil,
 							nil,
@@ -798,6 +808,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -845,6 +856,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"back.channel.logout.ch",
 							domain.LoginVersionUnspecified,
 							nil,
+							false,
 							// saml config
 							nil,
 							nil,
@@ -892,6 +904,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -939,6 +952,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"back.channel.logout.ch",
 							domain.LoginVersionUnspecified,
 							nil,
+							false,
 							// saml config
 							nil,
 							nil,
@@ -986,6 +1000,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersionUnspecified,
 							LoginBaseURI:             nil,
+							LimitAudience:            false,
 						},
 					},
 				},
@@ -1033,6 +1048,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"back.channel.logout.ch",
 							domain.LoginVersion2,
 							"https://login.ch/",
+							false,
 							// saml config
 							nil,
 							nil,
@@ -1055,6 +1071,7 @@ func Test_AppsPrepare(t *testing.T) {
 							"api-client-id",
 							domain.APIAuthMethodTypePrivateKeyJWT,
 							// oidc config
+							nil,
 							nil,
 							nil,
 							nil,
@@ -1164,6 +1181,7 @@ func Test_AppsPrepare(t *testing.T) {
 							BackChannelLogoutURI:     "back.channel.logout.ch",
 							LoginVersion:             domain.LoginVersion2,
 							LoginBaseURI:             gu.Ptr("https://login.ch/"),
+							LimitAudience:            false,
 						},
 					},
 					{
@@ -1479,6 +1497,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},
@@ -1568,6 +1587,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},
@@ -1730,6 +1750,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},
@@ -1819,6 +1840,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},
@@ -1908,6 +1930,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},
@@ -1997,6 +2020,7 @@ func Test_AppPrepare(t *testing.T) {
 					BackChannelLogoutURI:     "back.channel.logout.ch",
 					LoginVersion:             domain.LoginVersionUnspecified,
 					LoginBaseURI:             nil,
+					LimitAudience:            false,
 				},
 			},
 		},

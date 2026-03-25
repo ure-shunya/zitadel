@@ -163,4 +163,9 @@ message OIDCConfig {
             description: "Specify the preferred login UI, where the user is redirected to for authentication. If unset, the login UI is chosen by the instance default.";
         }
     ];
+    bool limit_audience = 22 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "When enabled, the audience of the issued tokens will only include the client_id of the application, not all client_ids from the project.";
+        }
+    ];
 }

@@ -118,6 +118,7 @@ func TestCommandSide_ChangeApplicationSecret(t *testing.T) {
 								"",
 								domain.LoginVersionUnspecified,
 								"",
+								false,
 							),
 						),
 					),

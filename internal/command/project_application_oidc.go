@@ -38,6 +38,7 @@ type addOIDCApp struct {
 	BackChannelLogoutURI        string
 	LoginVersion                domain.LoginVersion
 	LoginBaseURI                string
+	LimitAudience               bool
 
 	ClientID          string
 	ClientSecret      string
@@ -118,6 +119,7 @@ func (c *Commands) AddOIDCAppCommand(app *addOIDCApp) preparation.Validation {
 					app.BackChannelLogoutURI,
 					app.LoginVersion,
 					app.LoginBaseURI,
+					app.LimitAudience,
 				),
 			}, nil
 		}, nil
@@ -238,6 +240,7 @@ func (c *Commands) addOIDCApplicationWithID(ctx context.Context, oidcApp *domain
 		backchannelLogoutURI,
 		gu.Value(oidcApp.LoginVersion),
 		strings.TrimSpace(gu.Value(oidcApp.LoginBaseURI)),
+		gu.Value(oidcApp.LimitAudience),
 	))
 
 	addedApplication.AppID = oidcApp.AppID
@@ -332,6 +335,7 @@ func (c *Commands) UpdateOIDCApplication(ctx context.Context, oidc *domain.OIDCA
 		backChannelLogout,
 		oidc.LoginVersion,
 		loginBaseURI,
+		oidc.LimitAudience,
 	)
 	if err != nil {
 		return nil, err
