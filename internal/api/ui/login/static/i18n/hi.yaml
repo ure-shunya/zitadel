@@ -429,7 +429,7 @@ Footer:
   Help: मदद
   SupportEmail: सहायता ई-मेल
 
-SignIn: {{.Provider}} के साथ साइन इन करें
+SignIn: "{{.Provider}} के साथ साइन इन करें"
 
 Errors:
   Internal: एक आंतरिक त्रुटि हुई

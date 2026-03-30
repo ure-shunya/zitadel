@@ -1554,7 +1554,8 @@
         "ro": "Română",
         "tr": "Türkçe",
         "uk": "Українська",
-        "ar": "العربية"
+        "ar": "العربية",
+        "hi": "हिन्दी"
       }
     },
     "SMTP": {
@@ -1802,7 +1803,8 @@
         "ro": "Română",
         "tr": "Türkçe",
         "uk": "Українська",
-        "ar": "العربية"
+        "ar": "العربية",
+        "hi": "हिन्दी"
       },
       "KEYS": {
         "emailVerificationDoneText": "Verificarea e-mailului efectuată",
@@ -2786,7 +2788,8 @@
     "ro": "Română",
     "tr": "Türkçe",
     "uk": "Українська",
-    "ar": "العربية"
+    "ar": "العربية",
+    "hi": "हिन्दी"
   },
   "MEMBER": {
     "ADD": "Adăugați un administrator",

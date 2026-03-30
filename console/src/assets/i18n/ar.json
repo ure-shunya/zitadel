@@ -1548,6 +1548,7 @@
         "sv": "Svenska",
         "id": "Bahasa Indonesia",
         "hu": "Magyar",
+        "hi": "हिन्दी",
         "ko": "한국어",
         "ro": "Română",
         "tr": "Türkçe",
@@ -1795,6 +1796,7 @@
         "sv": "Svenska",
         "id": "Bahasa Indonesia",
         "hu": "Magyar",
+        "hi": "हिन्दी",
         "ko": "한국어",
         "ro": "Română",
         "tr": "Türkçe",
@@ -2783,7 +2785,8 @@
     "ko": "한국어",
     "ro": "Română",
     "tr": "Türkçe",
-    "ar": "العربية"
+    "ar": "العربية",
+    "hi": "हिन्दी"
   },
   "MEMBER": {
     "ADD": "إضافة مسؤول النظام",
