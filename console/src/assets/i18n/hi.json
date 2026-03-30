@@ -576,7 +576,8 @@
           },
           "SELECT_METHOD": {
             "TITLE": "मेथड चुनें",
-            "DESCRIPTION": "यदि आप केवल किसी विशिष्ट अनुरोध पर निष्पादित करना चाहते हैं, तो उसे यहां चुनें"
+            "DESCRIPTION": "यदि आप केवल किसी विशिष्ट अनुरोध पर निष्पादित करना चाहते हैं, तो उसे यहां चुनें",
+            "NOTE": "If you don't select a method, your action will run on every request in your selected service."
           },
           "FUNCTIONNAME": {
             "TITLE": "फंक्शन का नाम",
@@ -1546,7 +1547,22 @@
         "fr": "Français",
         "it": "Italiano",
         "ja": "日本語",
-        "zh": "简体中文"
+        "zh": "简体中文",
+        "ar": "العربية",
+        "bg": "Български",
+        "cs": "Čeština",
+        "hu": "Magyar",
+        "id": "Bahasa Indonesia",
+        "ko": "한국어",
+        "mk": "Македонски",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Portuguese",
+        "ro": "Română",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     },
     "SMTP": {
@@ -1643,12 +1659,22 @@
       "LOGINV2": "लॉगिन V2",
       "LOGINV2_DESCRIPTION": "इसे सक्षम करने से सुरक्षा, प्रदर्शन और कस्टमाइज़ेशन में सुधार के साथ नया टाइपस्क्रिप्ट-आधारित लॉगिन UI सक्रिय हो जाता है।",
       "LOGINV2_BASEURI": "बेस URI (Base URI)",
-      "ENABLERELATIONALTABLES": "रिलेशनल टेबल्स"
+      "ENABLERELATIONALTABLES": "रिलेशनल टेबल्स",
+      "CONSOLEUSEV2USERAPI_DESCRIPTION": "When this flag is enabled, the Management Console uses the V2 User API to create new users. With the V2 API, newly created users start without an initial state.",
+      "DEBUGOIDCPARENTERROR_DESCRIPTION": "If the flag is enabled, the OIDC parent error will be logged in the console.",
+      "ENABLERELATIONALTABLES_DESCRIPTION": "Enable this to use relational tables instead of projections for storing data. Currently this toggle does nothing.",
+      "INHERITEDINDICATOR_DESCRIPTION": {
+        "ENABLED": "\"Enabled\" is inherited",
+        "DISABLED": "\"Disabled\" is inherited"
+      },
+      "OIDCSINGLEV1SESSIONTERMINATION_DESCRIPTION": "If the flag is enabled, you'll be able to terminate a single session from the login UI by providing an id_token with a `sid` claim as id_token_hint on the end_session endpoint. Note that currently all sessions from the same user agent (browser) are terminated in the login UI. Sessions managed through the Session API already allow the termination of single sessions.",
+      "PERMISSIONCHECKV2_DESCRIPTION": "If the flag is enabled, you'll be able to use the new API and its features."
     },
     "DIALOG": {
       "RESET": {
         "DEFAULTTITLE": "सेटिंग रीसेट करें",
-        "DEFAULTDESCRIPTION": "आप अपनी सेटिंग्स को अपने इन्स्टेंस की डिफॉल्ट सेटिंग्स पर रीसेट करने वाले हैं। क्या आप जारी रखना चाहते हैं?"
+        "DEFAULTDESCRIPTION": "आप अपनी सेटिंग्स को अपने इन्स्टेंस की डिफॉल्ट सेटिंग्स पर रीसेट करने वाले हैं। क्या आप जारी रखना चाहते हैं?",
+        "LOGINPOLICY_DESCRIPTION": "Warning: If your continue, Identity Provider settings will be reset to the instance setting too."
       }
     }
   },
@@ -1706,7 +1732,10 @@
         "THEME_MODE_AUTO": "ऑटो मोड",
         "THEME_MODE_LIGHT": "केवल लाइट मोड",
         "THEME_MODE_DARK": "केवल डार्क मोड"
-      }
+      },
+      "FONTINLOGINONLY": "The font is currently only displayed in the login interface.",
+      "PREVIEW_DESCRIPTION": "Changes of the policy will automatically deployed to preview environment.",
+      "RELEASEFONT": "Release"
     },
     "PWD_AGE": {
       "TITLE": "पासवर्ड समाप्ति",
@@ -1726,7 +1755,10 @@
       "TITLE": "लॉगिन सेटिंग्स",
       "DESCRIPTION": "परिभाषित करें कि यूजर्स को कैसे ऑथेंटिकेट किया जा सकता है और आइडेंटिटी प्रोवाइडर्स को कॉन्फ़िगर करें",
       "SAVED": "सफलतापूर्वक सहेजा गया!",
-      "PROVIDER_ADDED": "आइडेंटिटी प्रोवाइडर सक्रिय हो गया।"
+      "PROVIDER_ADDED": "आइडेंटिटी प्रोवाइडर सक्रिय हो गया।",
+      "DESCRIPTIONCREATEADMIN": "Users can choose from the available identity providers below.",
+      "DESCRIPTIONCREATEMGMT": "Users can choose from the available identity providers below. Note: You can use System-set providers as well as providers set for your organization only.",
+      "LIFETIME_INVALID": "Form contains invalid value(s)."
     },
     "PRIVACY_POLICY": {
       "DESCRIPTION": "अपनी गोपनीयता नीति और सेवा की शर्तों के लिंक सेट करें",
@@ -1737,7 +1769,9 @@
       "DOCSLINK": "डॉक्यूमेंटेशन लिंक (मैनेजमेंट कंसोल)",
       "SAVED": "सफलतापूर्वक सहेजा गया!",
       "RESET_TITLE": "डिफॉल्ट मान पुनर्स्थापित करें",
-      "RESET_DESCRIPTION": "क्या आप वाकई जारी रखना चाहते हैं?"
+      "RESET_DESCRIPTION": "क्या आप वाकई जारी रखना चाहते हैं?",
+      "CUSTOMLINK": "Custom Link (Management Console)",
+      "CUSTOMLINKTEXT": "Custom Link Text (Management Console)"
     },
     "LOGIN_TEXTS": {
       "TITLE": "लॉगिन इंटरफेस टेक्स्ट",
@@ -1784,8 +1818,37 @@
         "passwordlessPromptText": "पासकी प्रॉम्प्ट",
         "passwordlessRegistrationDoneText": "पासकी रजिस्ट्रेशन पूरा हुआ",
         "passwordlessRegistrationText": "पासकी रजिस्ट्रेशन",
-        "passwordlessText": "पासकी"
-      }
+        "passwordlessText": "पासकी",
+        "externalRegistrationUserOverviewText": "External Registration User Overview"
+      },
+      "ACTIVE_LANGUAGE_NOT_ALLOWED": "You selected a language that is not allowed. You can go on modifying the texts. But if you want your users to actually be able to use this language, change your instances restrictions.",
+      "DESCRIPTION_SHORT": "Define your texts for the login interfaces.",
+      "LANGUAGES": {
+        "de": "Deutsch",
+        "en": "English",
+        "es": "Español",
+        "fr": "Français",
+        "it": "Italiano",
+        "ja": "日本語",
+        "pl": "Polski",
+        "zh": "简体中文",
+        "bg": "Български",
+        "pt": "Portuguese",
+        "mk": "Македонски",
+        "cs": "Čeština",
+        "ru": "Русский",
+        "nl": "Nederlands",
+        "sv": "Svenska",
+        "id": "Bahasa Indonesia",
+        "hu": "Magyar",
+        "hi": "हिन्दी",
+        "ko": "한국어",
+        "ro": "Română",
+        "tr": "Türkçe",
+        "uk": "Українська",
+        "ar": "العربية"
+      },
+      "LANGUAGES_NOT_ALLOWED": "Not allowed:"
     },
     "MESSAGE_TEXTS": {
       "TYPE": "सूचना (Notification)",
@@ -1818,7 +1881,9 @@
         "username": "यूजरनेम",
         "otp": "OTP",
         "expiry": "समाप्ति",
-        "applicationName": "एप्लिकेशन का नाम"
+        "applicationName": "एप्लिकेशन का नाम",
+        "tempUsername": "Temp username",
+        "verifyUrl": "Verify OTP URL"
       },
       "TOAST": {
         "UPDATED": "कस्टम टेक्स्ट सहेजे गए।"
@@ -1846,7 +1911,18 @@
       "DEFAULTREDIRECTURI": "डिफॉल्ट रीडायरेक्ट URI",
       "ERRORMSGPOPUP": "डायलॉग में त्रुटि दिखाएं",
       "DISABLEWATERMARK": "वॉटरमार्क छुपाएं",
-      "DISABLEWATERMARK_DESC": "लॉगिन इंटरफेस में 'Powered by Zitadel' वॉटरमार्क छुपाएं"
+      "DISABLEWATERMARK_DESC": "लॉगिन इंटरफेस में 'Powered by Zitadel' वॉटरमार्क छुपाएं",
+      "ALLOWDOMAINDISCOVERY_DESC": "If the option is selected, the suffix (@domain.com) of an unknown username input on the login screen will be matched against the Organization Domains and will redirect to the registration of that organisation on success.",
+      "ALLOWEXTERNALIDP_DESC": "The login is allowed for the underlying identity providers",
+      "ALLOWREGISTER_DESC": "If the option is selected, an additional step for registering a user appears in the login.",
+      "ALLOWUSERNAMEPASSWORD_DESC": "The conventional login with user name and password is allowed.",
+      "DEFAULTREDIRECTURI_DESC": "Defines where the user will be redirected to if the login has started without an app context (e.g. from mail)",
+      "FORCEMFALOCALONLY_DESC": "If the option is selected, local authenticated users have to configure a second factor for login.",
+      "HIDELOGINNAMESUFFIX_DESC": "Hides the login name suffix in the login interface",
+      "SHOWLOCKOUTFAILURES": "show lockout failures",
+      "SMTPSENDERADDRESSMATCHESINSTANCEDOMAIN": "SMTP Sender Address matches Instance Domain",
+      "USERLOGINMUSTBEDOMAIN_DESCRIPTION": "If you enable this setting, all loginnames will be suffixed with the Organization Domain. If this settings is disabled, you have to ensure that usernames are unique over all organizations.",
+      "VALIDATEORGDOMAINS": "Organization Domain verification required (DNS or HTTP challenge)"
     },
     "RESET": "इन्स्टेंस डिफॉल्ट पर रीसेट करें",
     "CREATECUSTOM": "कस्टम नीति बनाएं",
@@ -1856,7 +1932,8 @@
       "UPLOADSUCCESS": "सफलतापूर्वक अपलोड किया गया!",
       "DELETESUCCESS": "सफलतापूर्वक डिलीट किया गया!",
       "UPLOADFAILED": "अपलोड विफल रहा!"
-    }
+    },
+    "DEFAULTLABEL": "The current settings corresponds to the standard of your Instance."
   },
   "ORG_DETAIL": {
     "TITLE": "संस्था (Organization)",
@@ -1920,6 +1997,10 @@
         "2": {
           "TITLE": "यूजर संस्था सेटिंग का उपयोग करें",
           "DESC": "प्रोजेक्ट की संस्था की ब्रांडिंग दिखाई जाएगी, लेकिन यूजर की पहचान होने पर उसकी संस्था की सेटिंग दिखाई जाएगी।"
+        },
+        "DIALOG": {
+          "TITLE": "Branding Setting",
+          "DESCRIPTION": "Select the behavior of the login, when using the project."
         }
       },
       "PINNED": "पिन किया गया",
@@ -1991,7 +2072,8 @@
         "SEL_ORG_DESC": "अनुमति देने के लिए संस्था खोजें।",
         "ORG_DESCRIPTION": "आप संस्था {{name}} के यूजर को अनुमति देने वाले हैं।",
         "SEL_ORG_FORMFIELD": "संस्था",
-        "FOR_ORG": "प्रोजेक्ट ग्रांट इसके लिए बनाया गया है:"
+        "FOR_ORG": "प्रोजेक्ट ग्रांट इसके लिए बनाया गया है:",
+        "ORG_DESCRIPTION_DESC": "Switch the context in the header above to grant a user for another organization."
       },
       "DETAIL": {
         "TITLE": "प्रोजेक्ट ग्रांट",
@@ -1999,7 +2081,8 @@
         "MEMBERTITLE": "एडमिनिस्ट्रेटर",
         "PROJECTNAME": "प्रोजेक्ट का नाम",
         "GRANTEDORG": "अनुमति प्राप्त संस्था",
-        "RESOURCEOWNER": "संसाधन स्वामी"
+        "RESOURCEOWNER": "संसाधन स्वामी",
+        "MEMBERDESC": "These are the administrators of the granted organization. Add users here who should gain access to edit the data of the project."
       },
       "STATE": "स्थिति",
       "STATES": {
@@ -2030,7 +2113,13 @@
         "DELETE_TITLE": "प्रोजेक्ट ग्रांट डिलीट करें",
         "DELETE_DESCRIPTION": "आप एक प्रोजेक्ट ग्रांट डिलीट करने वाले हैं। क्या आप सुनिश्चित हैं?"
       },
-      "ROLES": "प्रोजेक्ट भूमिकाएं"
+      "ROLES": "प्रोजेक्ट भूमिकाएं",
+      "DATES": "Dates",
+      "GRANTEDORG": "Granted Organization",
+      "GRANTEDORGDOMAIN": "Domain",
+      "GRANTEDORGNAME": "Organization Name",
+      "PROJECTNAME": "Project Name",
+      "RESOURCEOWNER": "Resource Owner"
     },
     "APP": {
       "TITLE": "एप्लिकेशन्स",
@@ -2062,7 +2151,8 @@
       "DIALOG": {
         "DELETE_TITLE": "भूमिका डिलीट करें",
         "DELETE_DESCRIPTION": "आप एक प्रोजेक्ट रोल डिलीट करने वाले हैं। क्या आप सुनिश्चित हैं?"
-      }
+      },
+      "SELECTGROUPTOOLTIP": "Select all Roles of the group {{group}}."
     },
     "HAS_PROJECT": "ऑथेंटिकेशन उन संस्थाओं के यूजर्स तक सीमित है जिन्हें इस प्रोजेक्ट का एक्सेस दिया गया है",
     "TABLE": {
@@ -2097,7 +2187,8 @@
       "UPDATED": "प्रोजेक्ट बदल दिया गया।",
       "GRANTUPDATED": "प्रोजेक्ट ग्रांट बदल दिया गया।",
       "DELETED": "प्रोजेक्ट डिलीट कर दिया गया।"
-    }
+    },
+    "HAS_PROJECT_DESCRIPTION": "Before a user can be authenticated, it is verified that their affiliated organization has been granted access to this project. Authentication is not permitted for users from unauthorized organizations."
   },
   "ROLES": {
     "DIALOG": {
@@ -2183,7 +2274,9 @@
         "0": "अक्षम",
         "1": "मौजूदा यूजरनेम की जांच करें",
         "2": "मौजूदा ईमेल की जांच करें"
-      }
+      },
+      "ISCREATIONALLOWED_DESC": "Determines whether accounts can be created using an external account. Disable if users should not be able to edit account information when auto_creation is enabled.",
+      "ISLINKINGALLOWED_DESC": "Determines whether an identity can be manually linked to an existing account. Disable if users should only be allowed to link the proposed account in case of active auto_linking."
     },
     "OWNERTYPES": {
       "0": "अज्ञात",
@@ -2694,7 +2787,19 @@
     "zh": "简体中文",
     "pt": "पुर्तगाली",
     "ru": "रूसी",
-    "ar": "अरबी"
+    "ar": "अरबी",
+    "bg": "Български",
+    "cs": "Čeština",
+    "hu": "Magyar",
+    "id": "Bahasa Indonesia",
+    "ko": "한국어",
+    "mk": "Македонски",
+    "nl": "Nederlands",
+    "pl": "Polski",
+    "ro": "Română",
+    "sv": "Svenska",
+    "tr": "Türkçe",
+    "uk": "Українська"
   },
   "MEMBER": {
     "ADD": "एक एडमिनिस्ट्रेटर जोड़ें",
